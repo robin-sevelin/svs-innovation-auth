@@ -1,7 +1,7 @@
 import { signIn } from '@/auth';
 import { RainbowButton } from './ui/rainbow-button';
 
-const LoginButton = () => {
+const GitHubButton = () => {
   return (
     <form
       action={async () => {
@@ -14,4 +14,4 @@ const LoginButton = () => {
   );
 };
 
-export default LoginButton;
+export default GitHubButton;

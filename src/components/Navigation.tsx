@@ -4,8 +4,8 @@ import React from 'react';
 
 const Navigation = () => {
   return (
-    <nav>
-      <ul className='flex gap-2'>
+    <nav className='flex justify-center items-center'>
+      <ul className='flex gap-3'>
         {pageUrls.map((url) => (
           <li key={url.id}>
             <Link href={url.url}>{url.title}</Link>

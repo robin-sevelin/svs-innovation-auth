@@ -1,4 +1,5 @@
-import LoginButton from '@/components/LoginButton';
+// import Credentials from '@/components/Credentials';
+import GitHubButton from '@/components/GitHubButton';
 import { Meteors } from '@/components/ui/meteors';
 
 export default function Home() {
@@ -8,7 +9,8 @@ export default function Home() {
       <span className='mb-10 pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10'>
         WELCOME
       </span>
-      <LoginButton />
+      <GitHubButton />
+      {/* <Credentials /> */}
     </section>
   );
 }

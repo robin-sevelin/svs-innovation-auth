@@ -3,12 +3,13 @@
 import React from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { userState } from '@/lib/constants';
 
 const LogoutButton = () => {
   const { data: session, status } = useSession();
   return (
     <div>
-      {status === 'authenticated' && (
+      {status === userState.isLoggedIn && (
         <button
           onClick={() => {
             signOut();

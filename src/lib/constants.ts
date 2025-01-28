@@ -5,7 +5,12 @@ export const pageUrls = [
 ];
 
 export enum routes {
+  BASE_URL = '/',
   DASHBOARD = 'Dashboard',
   ABOUT = 'About',
   CONTACT = 'Contact',
+}
+
+export enum userState {
+  isLoggedIn = 'authenticated',
 }
