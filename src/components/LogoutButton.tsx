@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import { signIn, useSession, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
-const Button = () => {
+const LogoutButton = () => {
   const { data: session, status } = useSession();
   return (
     <div>
-      {status === 'authenticated' ? (
+      {status === 'authenticated' && (
         <button
           onClick={() => {
             signOut();
@@ -22,17 +22,9 @@ const Button = () => {
           />
           Sign out
         </button>
-      ) : (
-        <button
-          onClick={() => {
-            signIn('github');
-          }}
-        >
-          Sign in
-        </button>
       )}
     </div>
   );
 };
 
-export default Button;
+export default LogoutButton;

@@ -1,13 +1,12 @@
 import React from 'react';
 import Navigation from './Navigation';
-import Button from './Button';
+import LogoutButton from './LogoutButton';
 
 const Header = () => {
   return (
-    <header className='flex justify-between p-2'>
-      <h1>Auth</h1>
+    <header className='flex justify-between p-3'>
+      <LogoutButton />
       <Navigation />
-      <Button />
     </header>
   );
 };
