@@ -9,7 +9,7 @@ const GitHubButton = () => {
         await signIn('github', { redirectTo: '/dashboard' });
       }}
     >
-      <RainbowButton type='submit'>Sign in with GitHub</RainbowButton>
+      <RainbowButton type='submit'>With GitHub</RainbowButton>
     </form>
   );
 };

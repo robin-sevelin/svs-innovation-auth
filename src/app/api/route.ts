@@ -10,7 +10,7 @@ export const GET = async (req: Request): Promise<NextResponse> => {
   await dbConnect();
   try {
     const { searchParams } = new URL(req.url);
-    const userId = searchParams.get('id'); // Example: Getting the user ID from query params
+    const userId = searchParams.get('id');
 
     if (!userId) {
       return NextResponse.json(
@@ -56,9 +56,9 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select('+password');
 
-    if (!user) {
+    if (!user || !user.password) {
       return NextResponse.json(
         { success: false, error: 'Invalid email or password' },
         { status: 401 }
@@ -90,3 +90,45 @@ export const POST = async (request: NextRequest) => {
     );
   }
 };
+
+// export const POST = async (request: NextRequest) => {
+//   await dbConnect();
+
+//   try {
+//     const { email, password } = await request.json();
+
+//     // Validate input
+//     if (!email || !password) {
+//       return NextResponse.json(
+//         { success: false, error: 'Email and password are required' },
+//         { status: 400 }
+//       );
+//     }
+
+//     // Check if user already exists
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return NextResponse.json(
+//         { success: false, error: 'User already exists' },
+//         { status: 400 }
+//       );
+//     }
+
+//     // Hash the password before saving
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Create and save user
+//     const newUser = await User.create({ email, password: hashedPassword });
+
+//     return NextResponse.json(
+//       { success: true, message: 'User created successfully', user: newUser },
+//       { status: 201 }
+//     );
+//   } catch (error) {
+//     console.error(error);
+//     return NextResponse.json(
+//       { success: false, error: 'Internal Server Error' },
+//       { status: 500 }
+//     );
+//   }
+// };

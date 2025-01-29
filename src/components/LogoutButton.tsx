@@ -16,7 +16,7 @@ const LogoutButton = () => {
           }}
         >
           <Image
-            src={session?.user?.image || '/public/placeholder.jpg'}
+            src={session?.user?.image || '/placeholder.jpg'}
             alt='profile picture'
             width={50}
             height={50}

@@ -11,6 +11,11 @@ h2 {
   font-size: 2rem;
 }
 
+button {
+  width: 200px;
+  margin-bottom: 1rem;
+}
+
 header {
   height: 100px;
 }
