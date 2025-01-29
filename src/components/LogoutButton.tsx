@@ -1,30 +1,36 @@
 'use client';
 
 import React from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { userState } from '@/lib/constants';
 
-const LogoutButton = () => {
-  const { data: session, status } = useSession();
+interface Session {
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+}
+
+const LogoutButton = ({ session }: { session: Session }) => {
+  if (!session) return null;
+
   return (
-    <div>
-      {status === userState.isLoggedIn && (
-        <button
-          onClick={() => {
-            signOut();
-          }}
-        >
-          <Image
-            src={session?.user?.image || '/placeholder.jpg'}
-            alt='profile picture'
-            width={50}
-            height={50}
-          />
-          Sign out
-        </button>
-      )}
-    </div>
+    <button
+      onClick={() => {
+        signOut();
+      }}
+    >
+      <Image
+        src={session?.user?.image ?? '/placeholder.jpg'}
+        onError={(e) => (e.currentTarget.src = '/placeholder.jpg')}
+        alt='Profile picture'
+        width={50}
+        height={50}
+        priority
+      />
+      Sign out
+    </button>
   );
 };
 

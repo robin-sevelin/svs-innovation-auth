@@ -1,17 +1,15 @@
-'use client';
-
 import React from 'react';
 import Navigation from './Navigation';
 import LogoutButton from './LogoutButton';
-import { useSession } from 'next-auth/react';
-import { userState } from '@/lib/constants';
+import { auth } from '@/auth';
 
-const Header = () => {
-  const { status } = useSession();
+const Header = async () => {
+  const session = await auth();
+
   return (
     <header className='flex justify-between p-3'>
-      <LogoutButton />
-      {status === userState.isLoggedIn && <Navigation />}
+      {session && <LogoutButton session={session} />}
+      {session && <Navigation />}
     </header>
   );
 };

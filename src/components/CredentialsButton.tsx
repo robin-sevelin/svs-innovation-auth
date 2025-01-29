@@ -4,9 +4,9 @@ import { RainbowButton } from './ui/rainbow-button';
 
 const CredentialsButton = () => {
   return (
-    <RainbowButton>
-      <Link href={'/credentials'}>With Credentials</Link>
-    </RainbowButton>
+    <Link href={'/credentials'}>
+      <RainbowButton>With Credentials </RainbowButton>
+    </Link>
   );
 };
 
