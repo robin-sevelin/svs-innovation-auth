@@ -1,6 +1,7 @@
 import { auth, signIn } from '@/auth';
 import { Meteors } from '@/components/ui/meteors';
 import { RainbowButton } from '@/components/ui/rainbow-button';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 const page = async () => {
@@ -28,6 +29,10 @@ const page = async () => {
         </label>
         <RainbowButton>Sign In</RainbowButton>
       </form>
+      <span>No account?</span>
+      <Link href={'/create'}>
+        <RainbowButton>Sign up</RainbowButton>
+      </Link>
     </section>
   );
 };

@@ -2,11 +2,11 @@ import GitHub from 'next-auth/providers/github';
 import Credentials from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken'; // Import JWT
+import jwt from 'jsonwebtoken';
 import dbConnect from './db/connection';
 import User from './db/models/user';
 
-const JWT_SECRET = process.env.JWT_SECRET || ''; // Use env variables for security
+const JWT_SECRET = process.env.JWT_SECRET || '';
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -40,7 +40,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           throw new Error('Invalid email or password');
         }
 
-        // Generate a JWT token (optional)
         const token = jwt.sign(
           { id: user._id, email: user.email },
           JWT_SECRET,
@@ -50,7 +49,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         return {
           id: user._id.toString(),
           email: user.email,
-          token, // Attach JWT to session if needed
+          token,
         };
       },
     }),
@@ -72,7 +71,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   //   },
   // },
   session: {
-    strategy: 'jwt', // Use JWT sessions
+    strategy: 'jwt',
   },
-  secret: JWT_SECRET, // Use a secure secret key
+  secret: JWT_SECRET,
 });
