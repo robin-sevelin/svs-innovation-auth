@@ -5,9 +5,13 @@ import bcrypt from 'bcryptjs';
 
 export const GET = async () => {
   await dbConnect();
+
   try {
     const usersList = await User.find();
-    return NextResponse.json(usersList);
+    return NextResponse.json(
+      { success: true, message: 'users from database', users: usersList },
+      { status: 201 }
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: error });
@@ -19,7 +23,6 @@ export const POST = async (request: NextRequest) => {
 
   try {
     const { email, password } = await request.json();
-    console.log(email, password);
 
     if (!email || !password) {
       return NextResponse.json(

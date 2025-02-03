@@ -3,34 +3,40 @@
 import React from 'react';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+import NoUser from './NoUser';
 
 interface Session {
-  user?: {
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
+  user: {
+    email: string;
+    image: string;
   };
 }
 
 const LogoutButton = ({ session }: { session: Session }) => {
-  if (!session) return null;
+  const { image, email } = session.user;
 
   return (
-    <button
-      onClick={() => {
-        signOut();
-      }}
-    >
-      <Image
-        src={session?.user?.image ?? '/placeholder.jpg'}
-        onError={(e) => (e.currentTarget.src = '/placeholder.jpg')}
-        alt='Profile picture'
-        width={50}
-        height={50}
-        priority
-      />
-      Sign out
-    </button>
+    <>
+      {session ? (
+        <button
+          onClick={() => {
+            signOut();
+          }}
+        >
+          <Image
+            src={image ?? '/placeholder.jpg'}
+            onError={(e) => (e.currentTarget.src = '/placeholder.jpg')}
+            alt='Profile picture'
+            width={50}
+            height={50}
+            priority
+          />
+          Sign out {email}
+        </button>
+      ) : (
+        <NoUser />
+      )}
+    </>
   );
 };
 

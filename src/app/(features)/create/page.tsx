@@ -3,27 +3,31 @@
 import { Meteors } from '@/components/ui/meteors';
 import { RainbowButton } from '@/components/ui/rainbow-button';
 import { UserInterface } from '@/db/models/user';
+import { useRouter } from 'next/navigation';
+
 import React, { FormEvent, useState } from 'react';
 
 const Create = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (formData: UserInterface, e: FormEvent) => {
     e.preventDefault();
-    await fetch('http://localhost:3000/api', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
-      headers: { 'Content-type': 'application/json' },
-    });
-
-    setEmail('');
-    setPassword('');
-
     try {
+      await fetch('http://localhost:3000/api', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+        headers: { 'Content-type': 'application/json' },
+      });
+
+      setEmail('');
+      setPassword('');
+
+      router.push('/credentials');
     } catch (error) {
       console.error(error);
     }

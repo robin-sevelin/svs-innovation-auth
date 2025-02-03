@@ -16,7 +16,11 @@ const page = async () => {
         className='flex flex-col gap-2 '
         action={async (formData) => {
           'use server';
-          await signIn('credentials', formData);
+          try {
+            await signIn('credentials', formData);
+          } catch (error) {
+            console.log(error);
+          }
         }}
       >
         <label>

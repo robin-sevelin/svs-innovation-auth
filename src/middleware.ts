@@ -2,6 +2,10 @@ import { auth } from '@/auth';
 import { NextResponse } from 'next/server';
 import { pageUrls } from './lib/constants';
 
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+};
+
 export default auth((req) => {
   const { auth: isLoggedIn } = req;
   const currentPath = req.nextUrl.pathname;
@@ -20,7 +24,3 @@ export default auth((req) => {
 
   return NextResponse.next();
 });
-
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
-};
