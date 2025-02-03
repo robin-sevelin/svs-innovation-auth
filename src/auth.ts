@@ -10,7 +10,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     GitHub,
     Credentials({
       credentials: {
-        userName: { label: 'UserName', type: 'string' },
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
