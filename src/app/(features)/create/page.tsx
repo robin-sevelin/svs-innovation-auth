@@ -1,19 +1,22 @@
 'use client';
 
-import { Meteors } from '@/components/ui/meteors';
-import { RainbowButton } from '@/components/ui/rainbow-button';
+import { formSchema } from '@/db/models/formSchema';
 import { UserInterface } from '@/db/models/user';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-
-import React, { FormEvent, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const Create = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserInterface>({
+    resolver: zodResolver(formSchema),
+  });
 
-  const handleSubmit = async (formData: UserInterface, e: FormEvent) => {
-    e.preventDefault();
+  const submitData = async (formData: UserInterface) => {
     try {
       await fetch('http://localhost:3000/api', {
         method: 'POST',
@@ -24,43 +27,28 @@ const Create = () => {
         headers: { 'Content-type': 'application/json' },
       });
 
-      setEmail('');
-      setPassword('');
-
       router.push('/credentials');
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
-    <section className='section-class'>
-      <Meteors number={30} />
-      <span className='span-class'>Enter E-mail and password</span>
-      <form
-        className='flex flex-col gap-2 '
-        onSubmit={(e) => handleSubmit({ email, password }, e)}
-      >
-        <label>
-          Email
-          <input
-            name='email'
-            value={email}
-            type='email'
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name='password'
-            value={password}
-            type='password'
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <RainbowButton>Create user</RainbowButton>
-      </form>
-    </section>
+    <form onSubmit={handleSubmit(submitData)}>
+      <label htmlFor='email'>Email</label>
+      <input type='email' id='email' {...register('email')} />
+      <div>
+        {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
+      </div>
+      <label htmlFor='password'>Password</label>
+      <input type='password' id='password' {...register('password')} />
+      <div>
+        {errors.password && (
+          <p style={{ color: 'red' }}>{errors.password.message}</p>
+        )}
+      </div>
+      <button type='submit'>Submit</button>
+    </form>
   );
 };
 
